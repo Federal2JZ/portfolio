@@ -1,26 +1,232 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html, body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  background-color: #0b0b0f;
+  color: #e0e0e0;
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Navigation */
+nav {
+  position: fixed;
+  top: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 2rem;
+  background: rgba(20, 10, 40, 0.85);
+  backdrop-filter: blur(12px);
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  z-index: 1000;
+}
+
+nav a {
+  color: #e0e0e0;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  background-color: #bb86fc33;
+  transform: scale(1.1);
+}
+
+/* Sections */
+section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5rem 2rem;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeSlideIn 0.8s forwards;
+}
+
+section h1, section h2 {
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+section p {
+  color: #cfcfcf;
+  text-align: center;
+  max-width: 700px;
+  margin-bottom: 2rem;
+}
+
+section button {
+  background-color: #bb86fc;
+  color: #0b0b0f;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+section button:hover {
+  background-color: #d39fff;
+  transform: scale(1.05);
+}
+
+/* Cards */
+.card {
+  background-color: #1c1c28;
+  border-radius: 2rem;
+  padding: 2rem;
+  margin: 1rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+}
+
+/* Forms */
+input, textarea {
+  background-color: #1a1a26;
+  border: 1px solid #333;
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  color: #e0e0e0;
+  width: 100%;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus {
+  border-color: #bb86fc;
+  outline: none;
+  box-shadow: 0 0 8px #bb86fc66;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  border-radius: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+img:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* Animations */
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Animated underline for name */
+.underline-animate {
+  position: relative;
+  display: inline-block;
+  color: #fff; /* your text color */
+  font-weight: 700;
+}
+
+/* underline pseudo-element */
+.underline-animate::after {
+  content: "";
+  position: absolute;
+  bottom: 0;          /* right under the text */
+  left: 0;
+  height: 3px;         /* thickness of underline */
+  width: 0;            /* start at 0 width */
+  background-color: #a855f7; /* purple underline */
+  border-radius: 2px;
+  animation: underline-grow 1s forwards ease-in-out;
+}
+
+/* animation keyframes */
+@keyframes underline-grow {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* skills section */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+  margin-top: 2rem;
+}
+
+.skill-card {
+  background-color: #1c1c28;
+  border-radius: 2rem;
+  padding: 3rem 2rem;
+  width: 180px; /* bigger cards */
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+}
+
+.skill-card span {
+  color: #e0e0e0;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: opacity 0.3s ease;
+}
+
+.skill-card img {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.skill-card:hover span {
+  opacity: 0;
+}
+
+.skill-card:hover img {
+  opacity: 1;
 }
